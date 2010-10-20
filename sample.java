@@ -1,17 +1,20 @@
-import java.io.*;
-import java.security.*;
-import java.security.spec.*;
-import java.security.interfaces.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Map;
-import javax.crypto.*;
-import javax.crypto.spec.*;
-import javax.crypto.interfaces.*;
+
+import javax.crypto.Cipher;
+import javax.crypto.Mac;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
 import org.apache.commons.codec.binary.Base64;
 import org.json.simple.parser.JSONParser;
 
 class sample {
-  
+
   public static byte[] base64_url_decode(String input) throws IOException {
     return new Base64(true).decode(input);
   }
@@ -33,7 +36,7 @@ class sample {
       throw new Exception("Invalid request. (Unsupported algorithm.)");
     }
 
-    if (((Long) envelope.get("issued_at")) < System.currentTimeMillis()/1000 - max_age) {
+    if (((Long) envelope.get("issued_at")) < System.currentTimeMillis() / 1000 - max_age) {
       throw new Exception("Invalid request. (Too old.)");
     }
 
@@ -42,7 +45,7 @@ class sample {
     Mac mac = Mac.getInstance("HMACSHA256");
     mac.init(hmacKey);
     byte[] digest = mac.doFinal(split[1].getBytes());
-    
+
     if (!Arrays.equals(base64_url_decode(encoded_sig), digest)) {
       throw new Exception("Invalid request. (Invalid signature.)");
     }
