@@ -50,4 +50,6 @@ Ruby requires [JSON](http://flori.github.com/json). To install, run
 
 == Java == 
 
-Java requires [Apache Commons Codec](http://commons.apache.org/codec/), [json-simple](http://code.google.com/p/json-simple/).
+Java requires these libraries:
+* [Apache Commons Codec](http://commons.apache.org/codec/)
+* [json-simple](http://code.google.com/p/json-simple/).

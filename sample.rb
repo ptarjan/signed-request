@@ -23,7 +23,8 @@ def parse_signed_request(input, secret, max_age=3600)
 
   raise 'Invalid request. (Invalid signature.)' \
     if base64_url_decode(encoded_sig) !=
-        OpenSSL::HMAC.hexdigest('sha256', secret, encoded_envelope).split.pack('H*')
+        OpenSSL::HMAC.hexdigest(
+          'sha256', secret, encoded_envelope).split.pack('H*')
 
   # for requests that are signed, but not encrypted, we're done
   return envelope if algorithm == 'HMAC-SHA256'
