@@ -35,4 +35,6 @@ function generate_signed_request($data, $secret, $encrypt=false) {
 
 $secret = '13750c9911fec5865d01f3bd00bdf4db';
 echo generate_signed_request(
-  array('the' => array('answer' => "the answer is forty two")), $secret);
+  array('the' => array('answer' => "the answer is forty two")),
+  $secret,
+  $_SERVER['DO_ENCRYPT'] == '1');

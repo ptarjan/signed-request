@@ -10,6 +10,7 @@ import time
 
 
 def base64_url_decode(input):
+    input = input.encode(u'ascii')
     input += '=' * (4 - (len(input) % 4))
     return base64.urlsafe_b64decode(input)
 
@@ -35,7 +36,7 @@ def parse_signed_request(input, secret, max_age=3600):
     # otherwise, decrypt the payload
     cipher = AES.new(secret, AES.MODE_CBC, base64_url_decode(envelope['iv']))
     decrypted = cipher.decrypt(base64_url_decode(envelope['payload']))
-    return json.loads(decrypted)
+    return json.loads(decrypted.strip('\0'))
 
 # process from stdin
 input = sys.stdin.read()
