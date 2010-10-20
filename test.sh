@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LANGS=(php rb py)
+LANGS=(php rb py java.sh)
 SIGNED=`DO_ENCRYPT=0 ./generate.php`
 ENCRYPTED=`DO_ENCRYPT=1 ./generate.php`
 EXPECTED='the answer is forty two'
