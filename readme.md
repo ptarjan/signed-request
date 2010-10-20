@@ -10,30 +10,6 @@ Note, you'll likely need to ensure some extensions are available in your
 environment.
 
 
-PHP
----
-
-You'll need these extensions:
-
-* [JSON](http://php.net/json)
-* [Hash](http://php.net/hash)
-* [mcrypt](http://php.net/mcrypt)
-* JSON(http://php.net/json)
-
-If these aren't installed, then your script will fail with a message like:
-
-     Fatal error: Call to undefined function mcrypt_create_iv()
-
-If they aren't activated but are present on your system, you can try to
-activate them by adding these lines to your php.ini file:
-
-    extension=mcrypt.so
-
-If that doesn't work (gives as "Unable to load dynamic library" error), then
-you'll need to recompile PHP with the extensions included or install the
-extension using your system package manager.
-
-
 Python
 ------
 
@@ -55,3 +31,26 @@ Java requires these libraries:
 
 * [Apache Commons Codec](http://commons.apache.org/codec/)
 * [json-simple](http://code.google.com/p/json-simple/).
+
+PHP
+---
+
+You'll need these extensions:
+
+* [JSON](http://php.net/json)
+* [Hash](http://php.net/hash)
+* [mcrypt](http://php.net/mcrypt)
+* [JSON](http://php.net/json)
+
+If these aren't installed, then your script will fail with a message like:
+
+     Fatal error: Call to undefined function mcrypt_create_iv()
+
+If they aren't activated but are present on your system, you can try to
+activate them by adding these lines to your php.ini file:
+
+    extension=mcrypt.so
+
+If that doesn't work (gives as "Unable to load dynamic library" error), then
+you'll need to recompile PHP with the extensions included or install the
+extension using your system package manager.
