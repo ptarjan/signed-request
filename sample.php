@@ -43,5 +43,5 @@ $secret = '13750c9911fec5865d01f3bd00bdf4db';
 try {
   echo json_encode(parse_signed_request($input, $secret));
 } catch(Exception $e) {
-  print_r($e);
+  fwrite(fopen('php://stderr', 'w'), $e);
 }
