@@ -6,8 +6,8 @@ function base64_url_decode($input) {
 }
 
 function parse_signed_request($input, $secret, $max_age=3600) {
-  list($encoded_sig, $payload) = explode('.', $input, 2);
-  $envelope = json_decode(base64_url_decode($payload), true);
+  list($encoded_sig, $encoded_envelope) = explode('.', $input, 2);
+  $envelope = json_decode(base64_url_decode($encoded_envelope), true);
   $algorithm = $envelope['algorithm'];
 
   if ($algorithm != 'AES-256-CBC/SHA256' && $algorithm != 'HMAC-SHA256') {
@@ -19,7 +19,7 @@ function parse_signed_request($input, $secret, $max_age=3600) {
   }
 
   if (base64_url_decode($encoded_sig) !=
-        hash_hmac('sha256', $payload, $secret, $raw=true)) {
+        hash_hmac('sha256', $encoded_envelope, $secret, $raw=true)) {
     throw new Exception('Invalid request. (Invalid signature.)');
   }
 

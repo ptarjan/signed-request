@@ -27,8 +27,9 @@ class sample {
     String[] split = input.split("[.]", 2);
 
     String encoded_sig = split[0];
+    String encoded_envelope = split[1];
     JSONParser parser = new JSONParser();
-    Map envelope = (Map) parser.parse(new String(base64_url_decode(split[1])));
+    Map envelope = (Map) parser.parse(new String(base64_url_decode(encoded_envelope)));
 
     String algorithm = (String) envelope.get("algorithm");
 
@@ -44,7 +45,7 @@ class sample {
     SecretKey hmacKey = new SecretKeySpec(key, "HMACSHA256");
     Mac mac = Mac.getInstance("HMACSHA256");
     mac.init(hmacKey);
-    byte[] digest = mac.doFinal(split[1].getBytes());
+    byte[] digest = mac.doFinal(encoded_envelope.getBytes());
 
     if (!Arrays.equals(base64_url_decode(encoded_sig), digest)) {
       throw new Exception("Invalid request. (Invalid signature.)");

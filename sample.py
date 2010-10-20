@@ -15,8 +15,8 @@ def base64_url_decode(input):
     return base64.urlsafe_b64decode(input)
 
 def parse_signed_request(input, secret, max_age=3600):
-    encoded_sig, payload = input.split('.', 1)
-    envelope = json.loads(base64_url_decode(payload))
+    encoded_sig, encoded_envelope = input.split('.', 1)
+    envelope = json.loads(base64_url_decode(encoded_envelope))
     algorithm = envelope['algorithm']
 
     if algorithm != 'AES-256-CBC/SHA256' and algorithm != 'HMAC-SHA256':
@@ -26,7 +26,7 @@ def parse_signed_request(input, secret, max_age=3600):
         raise Exception('Invalid request. (Too old.)')
 
     if base64_url_decode(encoded_sig) != hmac.new(
-            secret, msg=payload, digestmod=hashlib.sha256).digest():
+            secret, msg=encoded_envelope, digestmod=hashlib.sha256).digest():
         raise Exception('Invalid request. (Invalid signature.)')
 
     # for requests that are signed, but not encrypted, we're done

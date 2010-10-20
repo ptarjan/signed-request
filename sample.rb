@@ -11,8 +11,8 @@ def base64_url_decode(str)
 end
 
 def parse_signed_request(input, secret, max_age=3600)
-  encoded_sig, payload = input.split('.', 2)
-  envelope = JSON.parse(base64_url_decode(payload))
+  encoded_sig, encoded_envelope = input.split('.', 2)
+  envelope = JSON.parse(base64_url_decode(encoded_envelope))
   algorithm = envelope['algorithm']
 
   raise 'Invalid request. (Unsupported algorithm.)' \
@@ -23,7 +23,7 @@ def parse_signed_request(input, secret, max_age=3600)
 
   raise 'Invalid request. (Invalid signature.)' \
     if base64_url_decode(encoded_sig) !=
-        OpenSSL::HMAC.hexdigest('sha256', secret, payload).split.pack('H*')
+        OpenSSL::HMAC.hexdigest('sha256', secret, encoded_envelope).split.pack('H*')
 
   # for requests that are signed, but not encrypted, we're done
   return envelope if algorithm == 'HMAC-SHA256'
