@@ -10,7 +10,7 @@ function parse_signed_request($input, $secret, $max_age=3600) {
   $envelope = json_decode(base64_url_decode($payload), true);
   $algorithm = $envelope['algorithm'];
 
-  if ($algorithm != 'AES-128-CBC/SHA256' && $algorithm != 'HMAC-SHA256') {
+  if ($algorithm != 'AES-256-CBC/SHA256' && $algorithm != 'HMAC-SHA256') {
     throw new Exception('Invalid request. (Unsupported algorithm.)');
   }
 

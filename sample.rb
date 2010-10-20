@@ -16,7 +16,7 @@ def parse_signed_request(input, secret, max_age=3600)
   algorithm = envelope['algorithm']
 
   raise 'Invalid request. (Unsupported algorithm.)' \
-    if algorithm != 'AES-128-CBC/SHA256' and algorithm != 'HMAC-SHA256'
+    if algorithm != 'AES-256-CBC/SHA256' and algorithm != 'HMAC-SHA256'
 
   raise 'Invalid request. (Too old.)' \
     if envelope['issued_at'] < Time.now.to_i - max_age
