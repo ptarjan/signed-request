@@ -20,7 +20,8 @@ Requires [PyCrypto](http://www.dlitz.net/software/pycrypto/). To install, run:
 Ruby
 ----
 
-Ruby requires [JSON](http://flori.github.com/json). To install, run
+You will need a build of Ruby with OpenSSL support. Additionally, you'll need
+[JSON](http://flori.github.com/json). To install, run
 
      gem install json
 
