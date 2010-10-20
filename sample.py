@@ -19,7 +19,7 @@ def parse_signed_request(input, secret, max_age=3600):
     envelope = json.loads(base64_url_decode(encoded_envelope))
     algorithm = envelope['algorithm']
 
-    if algorithm != 'AES-256-CBC/SHA256' and algorithm != 'HMAC-SHA256':
+    if algorithm != 'AES-256-CBC HMAC-SHA256' and algorithm != 'HMAC-SHA256':
         raise Exception('Invalid request. (Unsupported algorithm.)')
 
     if envelope['issued_at'] < time.time() - max_age:

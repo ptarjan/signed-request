@@ -23,7 +23,7 @@ function generate_signed_request($data, $secret, $encrypt=false) {
   }
 
   // always present, and always at the top level
-  $data['algorithm'] = $encrypt ? 'AES-256-CBC/SHA256' : 'HMAC-SHA256';
+  $data['algorithm'] = $encrypt ? 'AES-256-CBC HMAC-SHA256' : 'HMAC-SHA256';
   $data['issued_at'] = time();
 
   // sign it
