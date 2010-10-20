@@ -30,7 +30,7 @@ Java
 Java requires these libraries:
 
 * [Apache Commons Codec](http://commons.apache.org/codec/)
-* [json-simple](http://code.google.com/p/json-simple/).
+* [json-simple](http://code.google.com/p/json-simple/)
 
 PHP
 ---
@@ -40,7 +40,6 @@ You'll need these extensions:
 * [JSON](http://php.net/json)
 * [Hash](http://php.net/hash)
 * [mcrypt](http://php.net/mcrypt)
-* [JSON](http://php.net/json)
 
 If these aren't installed, then your script will fail with a message like:
 
