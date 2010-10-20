@@ -13,4 +13,4 @@ environment.
   [mcrypt](http://php.net/mcrypt).
 - Python requires [PyCrypto](http://www.dlitz.net/software/pycrypto/).
 - Ruby requires [JSON](http://flori.github.com/json).
-- Java requires [Apache Commons Codec](http://commons.apache.org/codec/) and [json-simple](http://code.google.com/p/json-simple/)
+- Java requires [Apache Commons Codec](http://commons.apache.org/codec/), [json-simple](http://code.google.com/p/json-simple/).
