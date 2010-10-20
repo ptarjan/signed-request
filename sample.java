@@ -33,7 +33,7 @@ class sample {
 
     String algorithm = (String) envelope.get("algorithm");
 
-    if (!algorithm.equals("AES-128-CBC/SHA256") && !algorithm.equals("HMAC-SHA256")) {
+    if (!algorithm.equals("AES-256-CBC/SHA256") && !algorithm.equals("HMAC-SHA256")) {
       throw new Exception("Invalid request. (Unsupported algorithm.)");
     }
 
