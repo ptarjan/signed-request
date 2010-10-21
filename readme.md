@@ -33,6 +33,12 @@ Java requires these libraries:
 * [Apache Commons Codec](http://commons.apache.org/codec/)
 * [json-simple](http://code.google.com/p/json-simple/)
 
+If you see a exception along the lines of **java.security.InvalidKeyException:
+Illegal key size**, you may need to get the right policy files to allow the use
+of AES-256 encryption. The policy files are available
+[here](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
+
+
 PHP
 ---
 
