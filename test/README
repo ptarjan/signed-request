@@ -1,3 +1,6 @@
 These tests are run with expresso in node.js
-
 http://visionmedia.github.com/expresso/
+
+To run them, start in the root directory of this repo and do:
+
+    test/test.js

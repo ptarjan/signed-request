@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env expresso
 
 var sys = require('sys'),
     exec = require('child_process').exec;
