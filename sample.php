@@ -10,7 +10,7 @@ function parse_signed_request($input, $secret, $max_age=3600) {
   $envelope = json_decode(base64_url_decode($encoded_envelope), true);
   $algorithm = $envelope['algorithm'];
 
-  if ($algorithm != 'AES-256-CBC HMAC-SHA256' && $algorithm != 'HMAC-SHA256') {
+  if ($algorithm != 'HMAC-SHA256') {
     throw new Exception('Invalid request. (Unsupported algorithm.)');
   }
 
@@ -23,18 +23,7 @@ function parse_signed_request($input, $secret, $max_age=3600) {
     throw new Exception('Invalid request. (Invalid signature.)');
   }
 
-  // for requests that are signed, but not encrypted, we're done
-  if ($algorithm == 'HMAC-SHA256') {
-    return $envelope;
-  }
-
-  // otherwise, decrypt the payload
-  return json_decode(trim(mcrypt_decrypt(
-    MCRYPT_RIJNDAEL_128,
-    $secret,
-    base64_url_decode($envelope['payload']),
-    MCRYPT_MODE_CBC,
-    base64_url_decode($envelope['iv']))), true);
+  return $envelope;
 }
 
 // process from stdin

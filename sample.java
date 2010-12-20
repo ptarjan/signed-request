@@ -4,10 +4,8 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Map;
 
-import javax.crypto.Cipher;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
-import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
@@ -33,7 +31,7 @@ class sample {
 
     String algorithm = (String) envelope.get("algorithm");
 
-    if (!algorithm.equals("AES-256-CBC HMAC-SHA256") && !algorithm.equals("HMAC-SHA256")) {
+    if (!algorithm.equals("HMAC-SHA256")) {
       throw new Exception("Invalid request. (Unsupported algorithm.)");
     }
 
@@ -51,22 +49,7 @@ class sample {
       throw new Exception("Invalid request. (Invalid signature.)");
     }
 
-    // for requests that are signed, but not encrypted, we"re done
-    if (algorithm.equals("HMAC-SHA256")) {
-      return envelope;
-    }
-
-    // otherwise, decrypt the payload
-    byte[] iv = base64_url_decode((String) envelope.get("iv"));
-    IvParameterSpec ips = new IvParameterSpec(iv);
-
-    SecretKey aesKey = new SecretKeySpec(key, "AES");
-    Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
-    cipher.init(Cipher.DECRYPT_MODE, aesKey, ips);
-
-    byte[] raw_ciphertext = base64_url_decode((String) envelope.get("payload"));
-    byte[] plaintext = cipher.doFinal(raw_ciphertext);
-    return (Map) parser.parse(new String(plaintext).trim());
+    return envelope;
   }
 
   public static void main(String[] args) throws Exception {

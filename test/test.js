@@ -7,12 +7,7 @@ var sys = require('sys'),
  * Expected to be executable files in the current directory */
 var langs = ['php','rb','py','java.sh'];
 
-/* Modes that generate.php should run in. 
- * These are environment varialbes */
-var types = ['ENCRYPT', 'SIGN'];
-
 /* Modes that generate.php can make errors in.
- * These will be run for each of the "types" above.
  * It is an object of enviroment => expected error string */
 var bad_cases = {
   'BAD_SIG' : 'Invalid signature',
@@ -21,10 +16,10 @@ var bad_cases = {
   'BAD_TIME' : 'Too old',
 };
 
-function addTest(type, lang) {
-  var name = 'Good '+type+' test in '+lang;
+function addTest(lang) {
+  var name = 'Good test in '+lang;
   exports[name] = function(assert) {
-    run(type+'=1', lang, function(error, stdout, stderr) {
+    run("GOOD=1", lang, function(error, stdout, stderr) {
       assert.eql(error, null, name + ' has an error output');
       assert.eql(stderr, '', name + 'has something on stderr');
       assert.includes(stdout, '"the answer is forty two"', name + ' is unexpected output');
@@ -32,7 +27,7 @@ function addTest(type, lang) {
   }
 
   forEach(bad_cases, function(bad_expected, bad_case) {
-    var env = type+'=1 ' +bad_case+'=1';
+    var env = bad_case+'=1';
     var name = env+' test in '+lang;
     exports[name] = function(assert) {
       run(env, lang, function(error, stdout, stderr) {
@@ -56,7 +51,5 @@ function forEach(arr, func) {
 
 /* Add the functions */
 forEach(langs, function(lang) {
-  forEach(types, function(type) {
-    addTest(type, lang);
-  });
+  addTest(lang);
 });

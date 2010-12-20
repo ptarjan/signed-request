@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-from Crypto.Cipher import AES
 import base64
 import hashlib
 import hmac
@@ -19,7 +18,7 @@ def parse_signed_request(input, secret, max_age=3600):
     envelope = json.loads(base64_url_decode(encoded_envelope))
     algorithm = envelope['algorithm']
 
-    if algorithm != 'AES-256-CBC HMAC-SHA256' and algorithm != 'HMAC-SHA256':
+    if algorithm != 'HMAC-SHA256':
         raise Exception('Invalid request. (Unsupported algorithm.)')
 
     if envelope['issued_at'] < time.time() - max_age:
@@ -29,14 +28,7 @@ def parse_signed_request(input, secret, max_age=3600):
             secret, msg=encoded_envelope, digestmod=hashlib.sha256).digest():
         raise Exception('Invalid request. (Invalid signature.)')
 
-    # for requests that are signed, but not encrypted, we're done
-    if algorithm == 'HMAC-SHA256':
-        return envelope
-
-    # otherwise, decrypt the payload
-    cipher = AES.new(secret, AES.MODE_CBC, base64_url_decode(envelope['iv']))
-    decrypted = cipher.decrypt(base64_url_decode(envelope['payload']))
-    return json.loads(decrypted.strip('\0'))
+    return envelope
 
 # process from stdin
 input = sys.stdin.read()
