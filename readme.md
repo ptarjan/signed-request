@@ -1,11 +1,13 @@
-# Facebook [`signed_request`](http://developers.facebook.com/docs/authentication/canvas)s
+# Examples for parsing Facebook's signed_request
 
-Provides samples for decoding `signed_request`s in a few different
-languages. To run the simple tests:
+Provides samples for decoding [`signed_request`](http://developers.facebook.com/docs/authentication/canvas) in a few different
+languages. 
+
+To run the simple tests:
 
     ./test.sh
 
-and to run the complex tests you need [expresso](http://visionmedia.github.com/expresso/) for [node.js](http://nodejs.org/). Then just run
+To run the complex tests you need [expresso](http://visionmedia.github.com/expresso/) for [node.js](http://nodejs.org/). Then run:
 
     expresso
 
